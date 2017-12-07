@@ -20,3 +20,4 @@ class Solution:
             else:
                 dic[self.hashstr(str)] = [str]
         return list(dic.values())
+    
