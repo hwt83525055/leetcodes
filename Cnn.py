@@ -46,7 +46,7 @@ b_fc1 = bias_variable([1024])
 h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
 h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
-keep_prob = tf.placeholder("float")
+keep_prob = tf.placeholder(tf.float32)
 h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
 W_fc2 = weight_variable([1024, 10])
@@ -62,25 +62,25 @@ correct_prediction = tf.equal(tf.argmax(y_conv,1), tf.argmax(y_,1))
 
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-# with tf.Session() as sess:
-#     sess.run(tf.global_variables_initializer())
-#     for i in range(20000):
-#       batch = mnist.train.next_batch(50)
-#       if i%100 == 0:
-#         train_accuracy = accuracy.eval(feed_dict={
-#             x:batch[0], y_: batch[1], keep_prob: 1.0})
-#         print("step %d, training accuracy"%i, train_accuracy)
-#       train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
-#
-#     print("test accuracy ", accuracy.eval(feed_dict={
-#         x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
-
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
-    for epoch in range(200):
-        for batch in range(n_batch):
-            batch_xs, batch_ys = mnist.train.next_batch(batch_size)
-            sess.run(train_step, feed_dict={x:batch_xs, y_:batch_ys, keep_prob: 0.5})
-        acc = sess.run(accuracy, feed_dict={x:mnist.test.images, y_:mnist.test.labels, keep_prob:1})
-        acc_train = sess.run(accuracy, feed_dict={x:mnist.train.images, y_:mnist.train.labels, keep_prob:1})
-        print('accuracy eqals ', acc, acc_train)
+    for i in range(20000):
+      batch = mnist.train.next_batch(50)
+      if i%100 == 0:
+        train_accuracy = accuracy.eval(feed_dict={
+            x:batch[0], y_: batch[1], keep_prob: 1.0})
+        print("step %d, training accuracy"%i, train_accuracy)
+      train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+
+    print("test accuracy ", accuracy.eval(feed_dict={
+        x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
+
+# with tf.Session() as sess:
+#     sess.run(tf.global_variables_initializer())
+#     for epoch in range(200):
+#         for batch in range(n_batch):
+#             batch_xs, batch_ys = mnist.train.next_batch(batch_size)
+#             sess.run(train_step, feed_dict={x:batch_xs, y_:batch_ys, keep_prob: 0.5})
+#         acc = sess.run(accuracy, feed_dict={x:mnist.test.images, y_:mnist.test.labels, keep_prob:1})
+#         acc_train = sess.run(accuracy, feed_dict={x:mnist.train.images, y_:mnist.train.labels, keep_prob:1})
+#         print('accuracy eqals ', acc, acc_train)
