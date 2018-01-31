@@ -31,22 +31,22 @@ s = Solution()
 print(s.largestRectangleArea([5, 6, 4, 2, 3, 7]))
 
 
-def quicksort(nums, start, end):
-    if start >= end:
-        return
-    key = nums[end]
-    i, j = start, end
-    while i<j:
-        while nums[i]<key and i<j:
-            i+=1
-        nums[i], nums[j] = nums[j], nums[i]
-        while nums[j]>key and i<j:
-            j-=1
-        nums[j], nums[i] = nums[i], nums[j]
-    nums[i] = key
-    quicksort(nums, start, i-1)
-    quicksort(nums, i+1, end)
+# def quicksort(nums, start, end):
+#     if start >= end:
+#         return
+#     key = nums[end]
+#     i, j = start, end
+#     while i<j:
+#         while nums[i]<key and i<j:
+#             i+=1
+#         nums[i], nums[j] = nums[j], nums[i]
+#         while nums[j]>=key and i<j:
+#             j-=1
+#         nums[j], nums[i] = nums[i], nums[j]
+#     nums[i] = key
+#     quicksort(nums, start, i-1)
+#     quicksort(nums, i+1, end)
 
-# s = [4,5,6,1,2,3]
-# quicksort(s, 0, 5)
+# s = [4,5,6,3,2,4,5]
+# quicksort(s, 0, 6)
 # print(s)

@@ -1,14 +1,18 @@
-from itertools import tee
-from random import shuffle
-
-def in_order(my_list):
-    it1, it2 = tee(my_list)
-    it2.__next__()
-    return all(a <= b for a, b in zip(it1, it2))
-
-def bogo_sort(array):
-    while not in_order(array):
-        shuffle(array)
-    return array
-
-print(bogo_sort([5, 6, 21, 3, 5, 12, 34, 52, 5]))
+def quicksort(nums, start, end):
+    if start >= end:
+        return
+    key = nums[end]
+    i, j = start, end
+    while i<j:
+        while nums[i]<key and i<j:
+            i+=1
+        nums[i], nums[j] = nums[j], nums[i]
+        while nums[j]>=key and i<j:
+            j-=1
+        nums[j], nums[i] = nums[i], nums[j]
+    nums[i] = key
+    quicksort(nums, start, i-1)
+    quicksort(nums, i+1, end)
+arr = [4,5,6,3,2,4,5]
+quicksort(arr, 0, 6)
+print(arr)

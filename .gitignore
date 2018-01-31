@@ -1,1 +1,3 @@
-./idea
+#pycharm
+.idea/
+.MNIST_data/
